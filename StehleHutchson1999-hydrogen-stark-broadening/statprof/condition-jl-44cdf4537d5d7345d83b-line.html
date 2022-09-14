@@ -1,0 +1,1723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.6.app/Contents/Resources/julia/share/julia/base/condition.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:05:05 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## thread/task locking abstraction
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline function concurrency_violation()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # can be useful for debugging
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #try; error(); catch; ccall(:jlbacktrace, Cvoid, ()); end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    error(&quot;concurrency violation detected&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    AbstractLock
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Abstract supertype describing types that
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">implement the synchronization primitives:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">[`lock`](@ref), [`trylock`](@ref), [`unlock`](@ref), and [`islocked`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">abstract type AbstractLock end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function lock end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function unlock end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function trylock end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function islocked end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unlockall(l::AbstractLock) = unlock(l) # internal function for implementing `wait`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">relockall(l::AbstractLock, token::Nothing) = lock(l) # internal function for implementing `wait`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">assert_havelock(l::AbstractLock, tid::Integer) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (islocked(l) &amp;&amp; tid == Threads.threadid()) ? nothing : concurrency_violation()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">assert_havelock(l::AbstractLock, tid::Task) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (islocked(l) &amp;&amp; tid === current_task()) ? nothing : concurrency_violation()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">assert_havelock(l::AbstractLock, tid::Nothing) = concurrency_violation()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    AlwaysLockedST
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This struct does not implement a real lock, but instead
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pretends to be always locked on the original thread it was allocated on,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">and simply ignores all other interactions.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">It also does not synchronize tasks; for that use a real lock such as [`RecursiveLock`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This can be used in the place of a real lock to, instead, simply and cheaply assert
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">that the operation is only occurring on a single cooperatively-scheduled thread.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">It is thus functionally equivalent to allocating a real, recursive, task-unaware lock
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">immediately calling `lock` on it, and then never calling a matching `unlock`,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">except that calling `lock` from another thread will throw a concurrency violation exception.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct AlwaysLockedST &lt;: AbstractLock
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ownertid::Int16
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    AlwaysLockedST() = new(Threads.threadid())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">assert_havelock(l::AlwaysLockedST) = assert_havelock(l, l.ownertid)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lock(l::AlwaysLockedST) = assert_havelock(l)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unlock(l::AlwaysLockedST) = assert_havelock(l)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">trylock(l::AlwaysLockedST) = l.ownertid == Threads.threadid()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">islocked(::AlwaysLockedST) = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## condition variables
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    GenericCondition
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Abstract implementation of a condition object
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for synchronizing tasks objects with a given lock.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct GenericCondition{L&lt;:AbstractLock}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    waitq::InvasiveLinkedList{Task}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lock::L
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    GenericCondition{L}() where {L&lt;:AbstractLock} = new{L}(InvasiveLinkedList{Task}(), L())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    GenericCondition{L}(l::L) where {L&lt;:AbstractLock} = new{L}(InvasiveLinkedList{Task}(), l)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    GenericCondition(l::AbstractLock) = new{typeof(l)}(InvasiveLinkedList{Task}(), l)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">assert_havelock(c::GenericCondition) = assert_havelock(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lock(c::GenericCondition) = lock(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unlock(c::GenericCondition) = unlock(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">trylock(c::GenericCondition) = trylock(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">islocked(c::GenericCondition) = islocked(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lock(f, c::GenericCondition) = lock(f, c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unlock(f, c::GenericCondition) = unlock(f, c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wait([x])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Block the current task until some event occurs, depending on the type of the argument:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* [`Channel`](@ref): Wait for a value to be appended to the channel.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* [`Condition`](@ref): Wait for [`notify`](@ref) on a condition.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* `Process`: Wait for a process or process chain to exit. The `exitcode` field of a process
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  can be used to determine success or failure.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* [`Task`](@ref): Wait for a `Task` to finish. If the task fails with an exception, a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  `TaskFailedException` (which wraps the failed task) is thrown.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* [`RawFD`](@ref): Wait for changes on a file descriptor (see the `FileWatching` package).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">If no argument is passed, the task blocks for an undefined period. A task can only be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">restarted by an explicit call to [`schedule`](@ref) or [`yieldto`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Often `wait` is called within a `while` loop to ensure a waited-for condition is met before
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">proceeding.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-condition-jl-wait-99"></a>
+              1 (0.03%) samples spent in wait<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              _trywait
+              <a href="asyncevent-jl-bbabc97665cd188119ba-line.html#Lasyncevent-jl-bbabc97665cd188119ba-line.html-111">line 111</a><br />
+            </div>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function wait(c::GenericCondition)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ct = current_task()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    assert_havelock(c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    push!(c.waitq, ct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    token = unlockall(c.lock)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    try
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-106"></a>106</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="task-jl-b1cb79516676c0e25426-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-task-jl-wait-763">wait</a><br />
+            </div>
+            <span class="code">        return wait()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    catch
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ct.queue === nothing || list_deletefirst!(ct.queue, ct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        rethrow()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    finally
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        relockall(c.lock, token)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    notify(condition, val=nothing; all=true, error=false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Wake up tasks waiting for a condition, passing them `val`. If `all` is `true` (the default),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">all waiting tasks are woken, otherwise only one is. If `error` is `true`, the passed value
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">is raised as an exception in the woken tasks.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Return the count of tasks woken up. Return 0 if no tasks are waiting on `condition`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">notify(c::GenericCondition, @nospecialize(arg = nothing); all=true, error=false) = notify(c, arg, all, error)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function notify(c::GenericCondition, @nospecialize(arg), all, error)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    assert_havelock(c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnt = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while !isempty(c.waitq)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        t = popfirst!(c.waitq)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        schedule(t, arg, error=error)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        cnt += 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        all || break
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return cnt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">notify_error(c::GenericCondition, err) = notify(c, err, true, true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">n_waiters(c::GenericCondition) = length(c.waitq)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isempty(condition)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Return `true` if no tasks are waiting on the condition, `false` otherwise.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isempty(c::GenericCondition) = isempty(c.waitq)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># default (Julia v1.0) is currently single-threaded
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># (although it uses MT-safe versions, when possible)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Condition()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Create an edge-triggered event source that tasks can wait for. Tasks that call [`wait`](@ref) on a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Condition` are suspended and queued. Tasks are woken up when [`notify`](@ref) is later called on
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">the `Condition`. Edge triggering means that only tasks waiting at the time [`notify`](@ref) is
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">called can be woken up. For level-triggered notifications, you must keep extra state to keep
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">track of whether a notification has happened. The [`Channel`](@ref) and [`Threads.Event`](@ref) types do
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">this, and can be used for level-triggered events.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This object is NOT thread-safe. See [`Threads.Condition`](@ref) for a thread-safe version.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const Condition = GenericCondition{AlwaysLockedST}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lock(c::GenericCondition{AlwaysLockedST}) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    throw(ArgumentError(&quot;`Condition` is not thread-safe. Please use `Threads.Condition` instead for multi-threaded code.&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unlock(c::GenericCondition{AlwaysLockedST}) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lcondition-jl-44cdf4537d5d7345d83b-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    throw(ArgumentError(&quot;`Condition` is not thread-safe. Please use `Threads.Condition` instead for multi-threaded code.&quot;))
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

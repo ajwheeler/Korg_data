@@ -1,0 +1,2438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/aw/.julia/packages/Interpolations/GIn2o/src/b-splines/indexing.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:07:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">### Primary evaluation entry points (itp(x...), gradient(itp, x...), and hessian(itp, x...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">itpinfo(itp) = (tcollect(itpflag, itp), axes(itp))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function (itp::BSplineInterpolation{T,N})(x::Vararg{Number,N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @boundscheck (checkbounds(Bool, itp, x...) || Base.throw_boundserror(itp, x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wis = weightedindexes((value_weights,), itpinfo(itp)..., x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    itp.coefs[wis...]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function (itp::BSplineInterpolation{T,N})(x::Vararg{Number,M}) where {T,M,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    inds, trailing = split_trailing(itp, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @boundscheck (check1(trailing) || Base.throw_boundserror(itp, x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @assert length(inds) == N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    itp(inds...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function (itp::BSplineInterpolation{T,N})(x::Vararg{Union{Number,AbstractVector},N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @boundscheck (checkbounds(Bool, itp, x...) || Base.throw_boundserror(itp, x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    itps = tcollect(itpflag, itp)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wis = dimension_wis(value_weights, itps, axes(itp), x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    coefs = coefficients(itp)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ret = [coefs[i...] for i in Iterators.product(wis...)]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    reshape(ret, shape(wis...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function gradient(itp::BSplineInterpolation{T,N}, x::Vararg{Number,N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @boundscheck checkbounds(Bool, itp, x...) || Base.throw_boundserror(itp, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wis = weightedindexes((value_weights, gradient_weights), itpinfo(itp)..., x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return SVector(_gradient(itp.coefs, wis...))   # work around #311
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _gradient(coefs, inds, moreinds...) = (coefs[inds...], _gradient(coefs, moreinds...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_gradient(coefs) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function gradient!(dest, itp::BSplineInterpolation{T,N}, x::Vararg{Number,N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    dest .= gradient(itp, x...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function hessian(itp::BSplineInterpolation{T,N}, x::Vararg{Number,N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @boundscheck checkbounds(Bool, itp, x...) || Base.throw_boundserror(itp, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wis = weightedindexes((value_weights, gradient_weights, hessian_weights), itpinfo(itp)..., x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    symmatrix(map(inds-&gt;itp.coefs[inds...], wis))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function hessian!(dest, itp::BSplineInterpolation{T,N}, x::Vararg{Number,N}) where {T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    dest .= hessian(itp, x...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Leftovers from AbstractInterpolation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function (itp::BSplineInterpolation)(x::Vararg{UnexpandedIndexTypes})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    itp(to_indices(itp, x)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function (itp::BSplineInterpolation)(x::Vararg{ExpandedIndexTypes})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    itp.(Iterators.product(x...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    weightedindexes(fs, itpflags, nodes, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Compute `WeightedIndex` values for evaluation at the position `xs...`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`fs` is a function or tuple of functions indicating the types of index required,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">typically `value_weights`, `gradient_weights`, and/or `hessian_weights`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`itpflags` and `nodes` can be obtained from `itpinfo(itp)...`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">See the &quot;developer documentation&quot; for further information.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function weightedindexes(fs::F, itpflags::NTuple{N,Flag}, knots::NTuple{N,AbstractVector}, xs::NTuple{N,Number}) where {F,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # parts = map((flag, knotvec, x)-&gt;weightedindex_parts(fs, flag, knotvec, x), itpflags, knots, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-66"></a>66</td>
+          <td></td>
+          <td>3 (15.79%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-Interpolations-GIn2o-src-b-splines-indexing-jl-weightedindexes-66"></a>
+              3 (15.79%) samples spent in weightedindexes<br />
+              0 (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              GriddedInterpolation
+              <a href="indexing-jl-8566cd0eee7857053ec4-line.html#Lindexing-jl-8566cd0eee7857053ec4-line.html-4">line 4</a><br />
+            </div>
+            <div class="callees">
+              3 (100.00%)
+              samples spent calling
+              <a href="indexing-jl-8716f6073a311ed65803-line.html#S-Users-aw-julia-packages-Interpolations-GIn2o-src-b-splines-indexing-jl-map3argf-70">map3argf</a><br />
+            </div>
+            <span class="code">    parts = map3argf(weightedindex_parts, fs, itpflags, knots, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    weightedindexes(parts...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This is a force-inlined version of map((flag, knotvec, x)-&gt;g(fs, flag, knotvec, x), itpflags, knots, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-70"></a>70</td>
+          <td></td>
+          <td>7 (36.84%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-Interpolations-GIn2o-src-b-splines-indexing-jl-map3argf-70"></a>
+              3 (15.79%) samples spent in map3argf<br />
+              0 (ex.),
+              0 (incl.)
+              when called from
+              map3argf
+              <a href="indexing-jl-8716f6073a311ed65803-line.html#Lindexing-jl-8716f6073a311ed65803-line.html-70">line 70</a><br />
+              0 (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              weightedindexes
+              <a href="indexing-jl-8716f6073a311ed65803-line.html#Lindexing-jl-8716f6073a311ed65803-line.html-66">line 66</a><br />
+            </div>
+            <div class="callees">
+              1 (14.29%)
+              samples spent calling
+              <a href="indexing-jl-8566cd0eee7857053ec4-line.html#S-Users-aw-julia-packages-Interpolations-GIn2o-src-gridded-indexing-jl-weightedindex_parts-56">weightedindex_parts</a><br />
+              2 (28.57%)
+              samples spent calling
+              <a href="indexing-jl-8566cd0eee7857053ec4-line.html#S-Users-aw-julia-packages-Interpolations-GIn2o-src-gridded-indexing-jl-weightedindex_parts-55">weightedindex_parts</a><br />
+              2 (28.57%)
+              samples spent calling
+              <a href="indexing-jl-8716f6073a311ed65803-line.html#S-Users-aw-julia-packages-Interpolations-GIn2o-src-b-splines-indexing-jl-map3argf-70">map3argf</a><br />
+            </div>
+            <span class="code">@inline map3argf(g::G, fs::F, itpflags, knots, xs) where {G,F} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (g(fs, itpflags[1], knots[1], xs[1]), map3argf(g, fs, Base.tail(itpflags), Base.tail(knots), Base.tail(xs))...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">map3argf(g::G, fs::F, ::Tuple{}, ::Tuple{}, ::Tuple{}) where {G,F} = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">weightedindexes(i::Vararg{Int,N}) where N = i  # the all-NoInterp case
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const PositionCoefs{P,C} = NamedTuple{(:position,:coefs),Tuple{P,C}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const ValueParts{P,W} = PositionCoefs{P,Tuple{W}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline weightedindexes(parts::Vararg{Union{Int,ValueParts},N}) where N =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    map(maybe_weightedindex, map(positions, parts), map(valuecoefs, parts))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">maybe_weightedindex(i::Integer, _::Integer) = Int(i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">maybe_weightedindex(pos, coefs::Tuple) = WeightedIndex(pos, coefs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">positions(i::Int) = i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">valuecoefs(i::Int) = i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gradcoefs(i::Int) = i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hesscoefs(i::Int) = i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">positions(t::PositionCoefs) = t.position
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">valuecoefs(t::PositionCoefs) = t.coefs[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gradcoefs(t::PositionCoefs) = t.coefs[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hesscoefs(t::PositionCoefs) = t.coefs[3]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const GradParts{P,W1,W2} = PositionCoefs{P,Tuple{W1,W2}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function weightedindexes(parts::Vararg{Union{Int,GradParts},N}) where N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Create (wis1, wis2, ...) where wisn is used to evaluate the gradient along the nth *chosen* dimension
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Example: if itp is a 3d interpolation of form (Linear, NoInterp, Quadratic) then we will return
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #    (gwi1, i2, wi3), (wi1, i2, gwi3)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # where wik are value-coefficient WeightedIndexes along dimension k
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #       gwik are gradient-coefficient WeightedIndexes along dimension k
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #       i2 is the integer index along dimension 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # These will result in a 2-vector gradient.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # TODO: check whether this is inferrable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slot_substitute(parts, map(positions, parts), map(valuecoefs, parts), map(gradcoefs, parts))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Skip over NoInterp dimensions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind::Tuple{Int,Vararg{Any}}, p, v, g) = slot_substitute(Base.tail(kind), p, v, g)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Substitute the dth dimension&#39;s gradient coefs for the remaining coefs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind, p, v, g) = (map(maybe_weightedindex, p, substitute_ruled(v, kind, g)), slot_substitute(Base.tail(kind), p, v, g)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Termination
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind::Tuple{}, p, v, g) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const HessParts{P,W1,W2,W3} = PositionCoefs{P,Tuple{W1,W2,W3}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function weightedindexes(parts::Vararg{Union{Int,HessParts},N}) where N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Create (wis1, wis2, ...) where wisn is used to evaluate the nth *chosen* hessian component
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Example: if itp is a 3d interpolation of form (Linear, NoInterp, Quadratic) then we will return
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #    (hwi1, i2, wi3), (gwi1, i2, gwi3), (wi1, i2, hwi3)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # where wik are value-coefficient WeightedIndexes along dimension k
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #       gwik are 1st-derivative WeightedIndexes along dimension k
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #       hwik are 2nd-derivative WeightedIndexes along dimension k
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #       i2 is just the index along dimension 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # These will result in a 2x2 hessian [hc1 hc2; hc2 hc3] where
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #    hc1 = coefs[hwi1, i2, wi3]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #    hc2 = coefs[gwi1, i2, gwi3]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #    hc3 = coefs[wi1,  i2, hwi3]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slot_substitute(parts, parts, map(positions, parts), map(valuecoefs, parts), map(gradcoefs, parts), map(hesscoefs, parts))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Skip over NoInterp dimensions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function slot_substitute(kind1::Tuple{Int,Vararg{Any}}, kind2::Tuple{Int,Vararg{Any}}, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @assert(kind1 == kind2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    kind = Base.tail(kind1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slot_substitute(kind, kind, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function slot_substitute(kind1, kind2::Tuple{Int,Vararg{Any}}, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    kind = Base.tail(kind1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slot_substitute(kind, kind, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind1::Tuple{Int,Vararg{Any}}, kind2, p, v, g, h) = slot_substitute(Base.tail(kind1), kind2, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Substitute the dth dimension&#39;s gradient coefs for the remaining coefs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function slot_substitute(kind1::K, kind2::K, p, v, g, h) where K
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ss = substitute_ruled(v, kind1, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (map(maybe_weightedindex, p, ss), slot_substitute(Base.tail(kind1), kind2, p, v, g, h)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function slot_substitute(kind1, kind2, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ss = substitute_ruled(substitute_ruled(v, kind1, g), kind2, g)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (map(maybe_weightedindex, p, ss), slot_substitute(Base.tail(kind1), kind2, p, v, g, h)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Termination
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind1::Tuple{}, kind2::Tuple{Int,Vararg{Any}}, p, v, g, h) = _slot_substitute(kind1::Tuple{}, kind2, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind1::Tuple{}, kind2, p, v, g, h) = _slot_substitute(kind1::Tuple{}, kind2, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _slot_substitute(kind1::Tuple{}, kind2, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # finish &quot;column&quot; and continue on to the next &quot;column&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    kind = Base.tail(kind2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slot_substitute(kind, kind, p, v, g, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">slot_substitute(kind1::Tuple{}, kind2::Tuple{}, p, v, g, h) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">weightedindex_parts(fs::F, itpflag::BSpline, ax, x) where F =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    weightedindex_parts(fs, degree(itpflag), ax, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function weightedindex_parts(fs::F, deg::Degree, ax::AbstractUnitRange{&lt;:Integer}, x) where F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pos, δx = positions(deg, ax,  x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (position=pos, coefs=fmap(fs, deg, δx))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># there is a Heisenbug, when Base.promote_op is inlined into getindex_return_type
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># thats why we use this @noinline fence
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline _promote_mul(a,b) = Base.promote_op(*, a, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline function getindex_return_type(::Type{BSplineInterpolation{T,N,TCoefs,IT,Axs}}, argtypes::Tuple) where {T,N,TCoefs,IT&lt;:DimSpec{BSpline},Axs}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    reduce(_promote_mul, eltype(TCoefs), argtypes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function getindex_return_type(::Type{BSplineInterpolation{T,N,TCoefs,IT,Axs}}, ::Type{I}) where {T,N,TCoefs,IT&lt;:DimSpec{BSpline},Axs,I}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _promote_mul(eltype(TCoefs), I)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This handles round-towards-the-middle for points on half-integer edges
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">roundbounds(x::Integer, bounds::Tuple{Real,Real}) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">roundbounds(x::Integer, bounds::AbstractUnitRange) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">roundbounds(x::Number, bounds::Tuple{Real,Real}) = _roundbounds(x, bounds)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">roundbounds(x::Number, bounds::AbstractUnitRange) = _roundbounds(x, bounds)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _roundbounds(x::Number, bounds::Union{Tuple{Real,Real}, AbstractUnitRange})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l, u = first(bounds), last(bounds)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    h = half(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    xh = x+h
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ifelse(x &lt; u+half(u), floor(xh), ceil(xh)-1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">floorbounds(x::Integer, ax::Tuple{Real,Real}) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">floorbounds(x::Integer, ax::AbstractUnitRange) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">floorbounds(x, ax::Tuple{Real,Real}) = _floorbounds(x, ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">floorbounds(x, ax::AbstractUnitRange) = _floorbounds(x, ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _floorbounds(x, ax::Union{Tuple{Real,Real}, AbstractUnitRange})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l = first(ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    h = half(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ifelse(x &lt; l, floor(x+h), floor(x+zero(h)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ceilbounds(x::Integer, ax::Tuple{Real,Real}) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ceilbounds(x::Integer, ax::AbstractUnitRange) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ceilbounds(x, ax::Tuple{Real,Real}) = _ceilbounds(x, ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ceilbounds(x, ax::AbstractUnitRange) = _ceilbounds(x, ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _ceilbounds(x, ax::Union{Tuple{Real,Real}, AbstractUnitRange})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    u = last(ax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    h = half(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ifelse(x &gt; u, ceil(x+h), ceil(x+zero(h)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">half(x) = oneunit(x)/2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">symmatrix(h::NTuple{1,Any}) = SMatrix{1,1}(h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">symmatrix(h::NTuple{3,Any}) = SMatrix{2,2}((h[1], h[2], h[2], h[3]))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">symmatrix(h::NTuple{6,Any}) = SMatrix{3,3}((h[1], h[2], h[3], h[2], h[4], h[5], h[3], h[5], h[6]))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function symmatrix(h::Tuple{L,Any}) where L
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @noinline incommensurate(L) = error(&quot;$L must be equal to N*(N+1)/2 for integer N&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    N = ceil(Int, sqrt(L))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (N*(N+1))÷2 == L || incommensurate(L)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l = Matrix{Int}(undef, N, N)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l[:,1] = 1:N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx = N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for j = 2:N, i = 1:N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if i &lt; j
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            l[i,j] = l[j,i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            l[i,j] = (idx+=1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if @generated
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        hexprs = [:(h[$i]) for i in vec(l)]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        :(SMatrix{$N,$N}($(hexprs...,)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        SMatrix{N,N}([h[i] for i in vec(l)]...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lindexing-jl-8716f6073a311ed65803-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

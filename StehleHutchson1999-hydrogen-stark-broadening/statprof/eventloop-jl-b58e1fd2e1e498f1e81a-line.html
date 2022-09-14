@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/aw/.julia/packages/IJulia/e8kqU/src/eventloop.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:07:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function eventloop(socket)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    task_local_storage(:IJulia_task, &quot;write task&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    try
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        while true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            msg = recv_ipython(socket)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            try
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                send_status(&quot;busy&quot;, msg)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-8"></a>8</td>
+          <td></td>
+          <td>19 (100.00%)</td>
+          <td>
+            <div class="callees">
+              19 (100.00%)
+              samples spent calling
+              <a href="essentials-jl-5934983182154b858494-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-essentials-jl-invokelatest-706">invokelatest</a><br />
+            </div>
+            <span class="code">                invokelatest(handlers[msg.header[&quot;msg_type&quot;]], socket, msg)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            catch e
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                # Try to keep going if we get an exception, but
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                # send the exception traceback to the front-ends.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                # (Ignore SIGINT since this may just be a user-requested
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                #  kernel interruption to interrupt long calculations.)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if !isa(e, InterruptException)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    content = error_content(e, msg=&quot;KERNEL EXCEPTION&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    map(s -&gt; println(orig_stderr[], s), content[&quot;traceback&quot;])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    send_ipython(publish[], msg_pub(execute_msg, &quot;error&quot;, content))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            finally
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                flush_all()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                send_status(&quot;idle&quot;, msg)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    catch e
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # the Jupyter manager may send us a SIGINT if the user
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # chooses to interrupt the kernel; don&#39;t crash on this
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(e, InterruptException)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            eventloop(socket)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            rethrow()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const requests_task = Ref{Task}()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function waitloop()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @async eventloop(control[])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    requests_task[] = @async eventloop(requests[])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        try
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            wait()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        catch e
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # send interrupts (user SIGINT) to the code-execution task
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(e, InterruptException)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                @async Base.throwto(requests_task[], e)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                rethrow()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Leventloop-jl-b58e1fd2e1e498f1e81a-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

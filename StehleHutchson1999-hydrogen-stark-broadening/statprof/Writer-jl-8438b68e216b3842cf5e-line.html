@@ -1,0 +1,3849 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/aw/.julia/packages/JSON/3rsiS/src/Writer.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:05:05 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">module Writer
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using Dates
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using ..Common
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using ..Serializations: Serialization, StandardSerialization,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                        CommonSerialization
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using Unicode
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Internal JSON.jl implementation detail; do not depend on this type.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">A JSON primitive that wraps around any composite type to enable `Dict`-like
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">serialization.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct CompositeTypeWrapper{T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    wrapped::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fns::Vector{Symbol}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">CompositeTypeWrapper(x, syms) = CompositeTypeWrapper(x, collect(syms))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">CompositeTypeWrapper(x) = CompositeTypeWrapper(x, propertynames(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lower(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Return a value of a JSON-encodable primitive type that `x` should be lowered
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">into before encoding as JSON. Supported types are: `AbstractDict` and `NamedTuple`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">to JSON objects, `Tuple` and `AbstractVector` to JSON arrays, `AbstractArray` to
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">nested JSON arrays, `AbstractString`, `Symbol`, `Enum`, or `Char` to JSON string,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Integer` and `AbstractFloat` to JSON number, `Bool` to JSON boolean, and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Nothing` to JSON null, or any other types with a `show_json` method defined.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Extensions of this method should preserve the property that the return value is
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">one of the aforementioned types. If first lowering to some intermediate type is
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">required, then extensions should call `lower` before returning a value.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Note that the return value need not be *recursively* lowered—this function may
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for instance return an `AbstractArray{Any, 1}` whose elements are not JSON
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">primitives.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function lower(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if nfields(a) &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        CompositeTypeWrapper(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        error(&quot;Cannot serialize type $(typeof(a))&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># To avoid allocating an intermediate string, we directly define `show_json`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># for this type instead of lowering it to a string first (which would
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># allocate). However, the `show_json` method does call `lower` so as to allow
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># users to change the lowering of their `Enum` or even `AbstractString`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># subtypes if necessary.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const IsPrintedAsString = Union{
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Dates.TimeType, Char, Type, AbstractString, Enum, Symbol}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lower(x::IsPrintedAsString) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lower(m::Module) = throw(ArgumentError(&quot;cannot serialize Module $m as JSON&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lower(x::Real) = convert(Float64, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lower(x::Base.AbstractSet) = collect(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Abstract supertype of all JSON and JSON-like structural writer contexts.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">abstract type StructuralContext &lt;: IO end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Internal implementation detail.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">A JSON structural context around an `IO` object. Structural writer contexts
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">define the behaviour of serializing JSON structural objects, such as objects,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">arrays, and strings to JSON. The translation of Julia types to JSON structural
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">objects is not handled by a `JSONContext`, but by a `Serialization` wrapper
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">around it. Abstract supertype of `PrettyContext` and `CompactContext`. Data can
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">be written to a JSON context in the usual way, but often higher-level operations
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">such as `begin_array` or `begin_object` are preferred to directly writing bytes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">to the stream.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">abstract type JSONContext &lt;: StructuralContext end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Internal implementation detail.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Keeps track of the current location in the array or object, which winds and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">unwinds during serialization.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable struct PrettyContext{T&lt;:IO} &lt;: JSONContext
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    io::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    step::Int     # number of spaces to step
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    state::Int    # number of steps at present
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    first::Bool   # whether an object/array was just started
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">PrettyContext(io::IO, step) = PrettyContext(io, step, 0, false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Internal implementation detail.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">For compact printing, which in JSON is fully recursive.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable struct CompactContext{T&lt;:IO} &lt;: JSONContext
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    io::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    first::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">CompactContext(io::IO) = CompactContext(io, false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Internal implementation detail.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Implements an IO context safe for printing into JSON strings.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct StringContext{T&lt;:IO} &lt;: IO
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    io::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># These aliases make defining additional methods on `show_json` easier.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const CS = CommonSerialization
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const SC = StructuralContext
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Low-level direct access
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.write(io::JSONContext, byte::UInt8) = write(io.io, byte)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-123"></a>123</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-write-123"></a>
+              1 (0.03%) samples spent in write<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              unsafe_write
+              <a href="io-jl-9a3b43dfe9ca0c4dd322-line.html#Lio-jl-9a3b43dfe9ca0c4dd322-line.html-238">line 238</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="io-jl-9a3b43dfe9ca0c4dd322-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-io-jl-write-669">write</a><br />
+            </div>
+            <span class="code">Base.write(io::StringContext, byte::UInt8) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    write(io.io, ESCAPED_ARRAY[byte + 1])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#= turn on if there&#39;s a performance benefit
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">write(io::StringContext, char::Char) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    char &lt;= &#39;\x7f&#39; ? write(io, ESCAPED_ARRAY[UInt8(c) + 1]) :
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                     Base.print(io, c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">=#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    indent(io::StructuralContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">If appropriate, write a newline to the given context, then indent it by the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">appropriate number of spaces. Otherwise, do nothing.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function indent(io::PrettyContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    write(io, NEWLINE)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for _ in 1:io.state
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        write(io, SPACE)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline indent(io::CompactContext) = nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    separate(io::StructuralContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Write a colon, followed by a space if appropriate, to the given context.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline separate(io::PrettyContext) = write(io, SEPARATOR, SPACE)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline separate(io::CompactContext) = write(io, SEPARATOR)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    delimit(io::StructuralContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">If this is not the first item written in a collection, write a comma in the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">structural context.  Otherwise, do not write a comma, but set a flag that the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">first element has been written already.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function delimit(io::JSONContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if !io.first
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        write(io, DELIMITER)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    io.first = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for kind in (&quot;object&quot;, &quot;array&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    beginfn = Symbol(&quot;begin_&quot;, kind)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    beginsym = Symbol(uppercase(kind), &quot;_BEGIN&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    endfn = Symbol(&quot;end_&quot;, kind)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    endsym = Symbol(uppercase(kind), &quot;_END&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Begin and end objects
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval function $beginfn(io::PrettyContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        write(io, $beginsym)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        io.state += io.step
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        io.first = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval $beginfn(io::CompactContext) = (write(io, $beginsym); io.first = true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval function $endfn(io::PrettyContext)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        io.state -= io.step
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if !io.first
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            indent(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        write(io, $endsym)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        io.first = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval $endfn(io::CompactContext) = (write(io, $endsym); io.first = false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_string(io::IO, str)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Print `str` as a JSON string (that is, properly escaped and wrapped by double
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">quotes) to the given IO object `io`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_string-195"></a>
+              1 (0.03%) samples spent in show_string<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              show_json
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-251">line 251</a><br />
+            </div>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_string(io::IO, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    write(io, STRING_DELIM)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-198"></a>198</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="io-jl-1f91b4700cbd184f131a-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-strings-io-jl-print-187">print</a><br />
+            </div>
+            <span class="code">    Base.print(StringContext(io), x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    write(io, STRING_DELIM)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_null(io::IO)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Print the string `null` to the given IO object `io`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_null(io::IO) = Base.print(io, &quot;null&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_element(io::StructuralContext, s, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Print object `x` as an element of a JSON array to context `io` using rules
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">defined by serialization `s`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_element(io::JSONContext, s, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    delimit(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    indent(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_json(io, s, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_key(io::StructuralContext, k)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Print string `k` as the key of a JSON key-value pair to context `io`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_key(io::JSONContext, k)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    delimit(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    indent(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_string(io, k)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    separate(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_pair(io::StructuralContext, s, k, v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Print the key-value pair defined by `k =&gt; v` as JSON to context `io`, using
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">rules defined by serialization `s`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_pair-238"></a>
+              1 (0.03%) samples spent in show_pair<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              show_pair
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-243">line 243</a><br />
+            </div>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_pair(io::JSONContext, s, k, v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-240"></a>240</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_key(io, k)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-241"></a>241</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-251">show_json</a><br />
+            </div>
+            <span class="code">    show_json(io, s, v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_pair-242"></a>
+              1 (0.03%) samples spent in show_pair<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              show_json
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-271">line 271</a><br />
+            </div>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-243"></a>243</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_pair-238">show_pair</a><br />
+            </div>
+            <span class="code">show_pair(io::JSONContext, s, kv) = show_pair(io, s, first(kv), last(kv))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Default serialization rules for CommonSerialization (CS)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, x::IsPrintedAsString)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # We need this check to allow `lower(x::Enum)` overrides to work if needed;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # it should be optimized out if `lower` is a no-op
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lx = lower(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if x === lx
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-251"></a>251</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-251"></a>
+              1 (0.03%) samples spent in show_json<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              show_pair
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-241">line 241</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_string-195">show_string</a><br />
+            </div>
+            <span class="code">        show_string(io, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        show_json(io, s, lx)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-256"></a>256</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, x::Union{Integer, AbstractFloat})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isfinite(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Base.print(io, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        show_null(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_json(io::SC, ::CS, ::Nothing) = show_null(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_json(io::SC, ::CS, ::Missing) = show_null(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-267"></a>
+              1 (0.03%) samples spent in show_json<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              #show_json#3
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-325">line 325</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, x::Union{AbstractDict, NamedTuple})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    begin_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for kv in pairs(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-271"></a>271</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_pair-242">show_pair</a><br />
+            </div>
+            <span class="code">        show_pair(io, s, kv)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, kv::Pair)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    begin_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    show_pair(io, s, kv)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, x::CompositeTypeWrapper)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    begin_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for fn in x.fns
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        show_pair(io, s, fn, getproperty(x.wrapped, fn))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end_object(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, x::Union{AbstractVector, Tuple})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    begin_array(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for elt in x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        show_element(io, s, elt)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-295"></a>295</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end_array(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-296"></a>296</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-297"></a>297</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-298"></a>298</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-299"></a>299</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Serialize a multidimensional array to JSON in column-major format. That is,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-300"></a>300</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`json([1 2 3; 4 5 6]) == &quot;[[1,4],[2,5],[3,6]]&quot;`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-301"></a>301</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-302"></a>302</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::SC, s::CS, A::AbstractArray{&lt;:Any,n}) where n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-303"></a>303</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    begin_array(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-304"></a>304</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    newdims = ntuple(_ -&gt; :, n - 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-305"></a>305</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for j in axes(A, n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-306"></a>306</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        show_element(io, s, view(A, newdims..., j))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-307"></a>307</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-308"></a>308</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end_array(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-309"></a>309</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-310"></a>310</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-311"></a>311</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># special case for 0-dimensional arrays
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-312"></a>312</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_json(io::SC, s::CS, A::AbstractArray{&lt;:Any,0}) = show_json(io, s, A[])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-313"></a>313</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-314"></a>314</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_json(io::SC, s::CS, a) = show_json(io, s, lower(a))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-315"></a>315</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-316"></a>316</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Fallback show_json for non-SC types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-317"></a>317</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-318"></a>318</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Serialize Julia object `obj` to IO `io` using the behaviour described by `s`. If
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-319"></a>319</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`indent` is provided, then the JSON will be pretty-printed; otherwise it will be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-320"></a>320</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">printed on one line. If pretty-printing is enabled, then a trailing newline will
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-321"></a>321</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">be printed; otherwise there will be no trailing newline.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-322"></a>322</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-323"></a>323</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show_json(io::IO, s::Serialization, obj; indent=nothing)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-324"></a>324</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-324"></a>
+              1 (0.03%) samples spent in show_json<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              print
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-349">line 349</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-3-325">#show_json#3</a><br />
+            </div>
+            <span class="code">    ctx = indent === nothing ? CompactContext(io) : PrettyContext(io, indent)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-325"></a>325</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-3-325"></a>
+              1 (0.03%) samples spent in #show_json#3<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              show_json
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#LWriter-jl-8438b68e216b3842cf5e-line.html-324">line 324</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-267">show_json</a><br />
+            </div>
+            <span class="code">    show_json(ctx, s, obj)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-326"></a>326</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if indent !== nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-327"></a>327</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        println(io)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-328"></a>328</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-329"></a>329</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-330"></a>330</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-331"></a>331</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-332"></a>332</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    JSONText(s::AbstractString)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-333"></a>333</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-334"></a>334</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`JSONText` is a wrapper around a Julia string representing JSON-formatted
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-335"></a>335</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">text, which is inserted *as-is* in the JSON output of `JSON.print` and `JSON.json`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-336"></a>336</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for compact output, and is otherwise re-parsed for pretty-printed output.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-337"></a>337</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-338"></a>338</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`s` *must* contain valid JSON text.  Otherwise compact output will contain
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-339"></a>339</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">the malformed `s` and other serialization output will throw a parsing exception.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-340"></a>340</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-341"></a>341</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct JSONText
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-342"></a>342</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s::String
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-343"></a>343</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-344"></a>344</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">show_json(io::CompactContext, s::CS, json::JSONText) = write(io, json.s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-345"></a>345</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># other contexts for JSONText are handled by lower(json) = parse(json.s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-346"></a>346</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-347"></a>347</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">print(io::IO, obj, indent) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-348"></a>348</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-print-348"></a>
+              1 (0.03%) samples spent in print<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              #sprint#385
+              <a href="io-jl-1f91b4700cbd184f131a-line.html#Lio-jl-1f91b4700cbd184f131a-line.html-105">line 105</a><br />
+            </div>
+            <span class="code">    show_json(io, StandardSerialization(), obj; indent=indent)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-349"></a>349</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="Writer-jl-8438b68e216b3842cf5e-line.html#S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-show_json-324">show_json</a><br />
+            </div>
+            <span class="code">print(io::IO, obj) = show_json(io, StandardSerialization(), obj)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-350"></a>350</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-351"></a>351</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">print(a, indent) = print(stdout, a, indent)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-352"></a>352</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">print(a) = print(stdout, a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-353"></a>353</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-354"></a>354</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-355"></a>355</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    json(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-356"></a>356</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    json(a, indent::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-357"></a>357</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-358"></a>358</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Creates a JSON string from a Julia object or value.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-359"></a>359</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-360"></a>360</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Arguments:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-361"></a>361</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  • a: the Julia object or value to encode
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-362"></a>362</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  • indent (optional number): if provided, pretty-print array and object
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-363"></a>363</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    substructures by indenting with the provided number of spaces
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-364"></a>364</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-JSON-3rsiS-src-Writer-jl-json-364"></a>
+              1 (0.03%) samples spent in json<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              send_ipython
+              <a href="msg-jl-a8b5b4d0b762a95d6a94-line.html#Lmsg-jl-a8b5b4d0b762a95d6a94-line.html-51">line 51</a><br />
+            </div>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-365"></a>365</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="io-jl-1f91b4700cbd184f131a-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-strings-io-jl-sprint-101">sprint</a><br />
+            </div>
+            <span class="code">json(a) = sprint(print, a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-366"></a>366</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">json(a, indent) = sprint(print, a, indent)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-367"></a>367</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LWriter-jl-8438b68e216b3842cf5e-line.html-368"></a>368</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

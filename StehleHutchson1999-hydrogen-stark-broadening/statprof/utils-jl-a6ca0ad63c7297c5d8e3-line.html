@@ -1,0 +1,1173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/aw/.julia/packages/Interpolations/GIn2o/src/utils.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:07:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline sqr(x) = x*x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline cub(x) = x*x*x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ratio(num::Integer, denom::Integer) = SimpleRatio(promote(num, denom)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-5"></a>5</td>
+          <td></td>
+          <td>1 (5.26%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-Interpolations-GIn2o-src-utils-jl-ratio-5"></a>
+              1 (5.26%) samples spent in ratio<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              weightedindex
+              <a href="indexing-jl-8566cd0eee7857053ec4-line.html#Lindexing-jl-8566cd0eee7857053ec4-line.html-71">line 71</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-536ca2d747b9e86e577f-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-float-jl-335">/</a><br />
+            </div>
+            <span class="code">ratio(num, denom) = num/denom
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">modrange(x, r::AbstractUnitRange) = mod(x-first(r), length(r)) + first(r)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">modrange(x, (l, u)::Tuple{Real,Real}) = mod(x-l, u-l+1) + l
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">fmap(fs, x...) = _fmap(x, fs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _fmap(x, f, fs...) = (f(x...), _fmap(x, fs...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _fmap(x) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">split_flag(f::Flag) = f, f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">split_flag(t::Tuple) = t[1], Base.tail(t)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getfirst(f::Flag) = f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getfirst(t::Tuple) = t[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getrest(f::Flag) = f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getrest(t::Tuple) = Base.tail(t)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">tcollect(f, itp::AbstractInterpolation{T,N}) where {T,N} = _tcollect(ntuple(d-&gt;true, Val(N)), f(itp))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _tcollect(ruler, prop) = (getfirst(prop), _tcollect(Base.tail(ruler), getrest(prop))...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_tcollect(::Tuple{}, prop) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">split_trailing(::AbstractArray{T,N}, x) where {T,N} = Base.IteratorsMD.split(x, Val(N))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">check1(args) = _check1(true, args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _check1(tf, a, args...) = _check1(tf &amp; (a == 1), args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_check1(tf) = tf
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># These are not inferrable for mixed-type tuples, so when that&#39;s important use `getfirst`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># and `getrest` instead.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">iextract(f::Flag, d) = f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">iextract(t::Tuple, d) = t[d]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">splitgrouped(prs::Tuple{Vararg{NTuple{2,Any}}}) = first.(prs), last.(prs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">splitgrouped(prs::Tuple{Vararg{NTuple{3,Any}}}) = first.(prs), middle.(prs), last.(prs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">middle(t::Tuple{Any,Any,Any}) = t[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">fast_trunc(::Type{Int}, x) = unsafe_trunc(Int, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">fast_trunc(::Type{Int}, x::Rational) = x.num ÷ x.den
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Slot-substitution guided by a `ruler` tuple. Substitution occurs when `default` has the same
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># length as `ruler`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline substitute_ruled(default, ruler, subst) = (default[1], substitute_ruled(Base.tail(default), ruler, Base.tail(subst))...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline substitute_ruled(default::NTuple{N,Any}, ruler::NTuple{N,Any}, subst) where N =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (subst[1], substitute_ruled(Base.tail(default), ruler, Base.tail(subst))...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">substitute_ruled(default::Tuple{}, ruler::NTuple{N,Any}, subst) where N = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline skip_nointerp(x, rest...) = (x, skip_nointerp(rest...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline skip_nointerp(::NoInterp, rest...) = skip_nointerp(rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">skip_nointerp() = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">skip_flagged_nointerp(itp::AbstractInterpolation, xs) = skip_flagged_nointerp(tcollect(itpflag, itp), xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">skip_flagged_nointerp(itpflags::Tuple{NoInterp,Vararg{Any}}, xs) = skip_flagged_nointerp(Base.tail(itpflags), Base.tail(xs))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">skip_flagged_nointerp(itpflags::Tuple, xs) = (xs[1], skip_flagged_nointerp(Base.tail(itpflags), Base.tail(xs))...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">skip_flagged_nointerp(::Tuple{}, ::Tuple{}) = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline sumvals(val, δval, args...) = sumvals(val+δval, args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline sumvals(val, ::Nothing, args...) = sumvals(val, args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sumvals(val) = val
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline promote_typeof(a, b, args...) = _promote_typeof(promote_type(typeof(a), typeof(b)), args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _promote_typeof(::Type{T}, a, args...) where T = _promote_typeof(promote_type(T, typeof(a)), args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_promote_typeof(::Type{T}) where T = T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## Vector indexing utilities
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Drop dimensions associated with &quot;scalar&quot; WeightedIndexes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">shape(i::WeightedIndex, rest...)  = shape(rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">shape(i::Number, rest...)         = shape(rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">shape(v::AbstractVector, rest...) = (axes1(v), shape(rest...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">shape() = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline keepvectors(v::Vector{Int}, rest...) = (v, keepvectors(rest...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline keepvectors(x, rest...) = keepvectors(rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">keepvectors() = ()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline lispyprod(p, v::AbstractVector{T}, rest...) where T = lispyprod(p*zero(T), rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline lispyprod(p, x::Number, rest...) = lispyprod(p*x, rest...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lispyprod(p) = p
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const onevec = 1:1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const emptyvec = 1:0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline inbounds(itp::AbstractInterpolation, x...) = _inbounds.(bounds(itp), x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_inbounds((l,u)::Tuple{Number,Number}, x::Number) = ifelse(l &lt;= x &lt;= u, onevec, emptyvec)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _inbounds((l,u)::Tuple{Number,Number}, x::AbstractVector)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ret = Int[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i in eachindex(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        l &lt;= x[i] &lt;= u &amp;&amp; push!(ret, i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ret
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function getindex!(dest, itp, xs::Vararg{AbstractArray,N}) where N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for (i, x) in zip(eachindex(dest), Iterators.product(xs...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        dest[i] = itp(x...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return dest
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function allbetween(l::Real, xs, u::Real)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ret = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds for x in xs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ret = ret &amp; (l &lt;= x) &amp; (x &lt;= u)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ret
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">allbetween(l::Real, xs::AbstractRange, u::Real) = (l &lt;= minimum(xs)) &amp; (maximum(xs) &lt;= u)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">allisreal(x) = _allisreal(true, x...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _allisreal(ret, x1::Real, xs...) = _allisreal(ret, xs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _allisreal(ret, x1, xs...) = _allisreal(false, xs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutils-jl-a6ca0ad63c7297c5d8e3-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_allisreal(ret) = ret
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

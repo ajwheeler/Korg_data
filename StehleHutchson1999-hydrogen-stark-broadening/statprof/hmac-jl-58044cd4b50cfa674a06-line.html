@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/aw/.julia/packages/IJulia/e8kqU/src/hmac.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:05:05 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using MbedTLS
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const hmacstate = Ref{MbedTLS.MD{true}}()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-aw-julia-packages-IJulia-e8kqU-src-hmac-jl-hmac-3"></a>
+              1 (0.03%) samples spent in hmac<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              send_ipython
+              <a href="msg-jl-a8b5b4d0b762a95d6a94-line.html#Lmsg-jl-a8b5b4d0b762a95d6a94-line.html-55">line 55</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hmac(s1,s2,s3,s4)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if !isdefined(hmacstate, :x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return &quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-8"></a>8</td>
+          <td></td>
+          <td>1 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="md-jl-cf612efd1605e7407420-line.html#S-Users-aw-julia-packages-MbedTLS-4YY6E-src-md-jl-reset-165">reset!</a><br />
+            </div>
+            <span class="code">        MbedTLS.reset!(hmacstate[])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for s in (s1, s2, s3, s4)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            write(hmacstate[], s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # Take the digest (returned as a byte array) and convert it to hex string representation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        digest = MbedTLS.finish!(hmacstate[])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        hexdigest = Vector{UInt8}(undef, length(digest)*2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for i = 1:length(digest)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            b = digest[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            d = b &gt;&gt; 4
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            hexdigest[2i-1] = UInt8(&#39;0&#39;)+d+39*(d&gt;9)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            d = b &amp; 0xf
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            hexdigest[2i] = UInt8(&#39;0&#39;)+d+39*(d&gt;9)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return String(hexdigest)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhmac-jl-58044cd4b50cfa674a06-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

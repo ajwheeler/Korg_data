@@ -1,0 +1,1756 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.6.app/Contents/Resources/julia/share/julia/base/ordering.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Jul 23 12:07:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">module Order
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">import ..@__MODULE__, ..parentmodule
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const Base = parentmodule(@__MODULE__)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">import .Base:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    AbstractVector, @propagate_inbounds, isless, identity, getindex,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    +, -, !, &amp;, &lt;, |
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## notions of element ordering ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">export # not exported by Base
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Ordering, Forward, Reverse,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    By, Lt, Perm,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ReverseOrdering, ForwardOrdering,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    DirectOrdering,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lt, ord, ordtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Base.Order.Ordering
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Abstract type which represents a total order on some set of elements.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Use [`Base.Order.lt`](@ref) to compare two elements according to the ordering.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">abstract type Ordering end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct ForwardOrdering &lt;: Ordering end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ReverseOrdering(fwd::Ordering=Forward)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">A wrapper which reverses an ordering.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">For a given `Ordering` `o`, the following holds for all  `a`, `b`:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lt(ReverseOrdering(o), a, b) == lt(o, b, a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct ReverseOrdering{Fwd&lt;:Ordering} &lt;: Ordering
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fwd::Fwd
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ReverseOrdering(rev::ReverseOrdering) = rev.fwd
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ReverseOrdering(fwd::Fwd) where {Fwd} = ReverseOrdering{Fwd}(fwd)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ReverseOrdering() = ReverseOrdering(ForwardOrdering())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const DirectOrdering = Union{ForwardOrdering,ReverseOrdering{ForwardOrdering}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Base.Order.Forward
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Default ordering according to [`isless`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const Forward = ForwardOrdering()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Base.Order.Reverse
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Reverse ordering according to [`isless`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const Reverse = ReverseOrdering()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    By(by, order::Ordering=Forward)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Ordering` which applies `order` to elements after they have been transformed
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">by the function `by`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct By{T, O} &lt;: Ordering
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    by::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    order::O
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># backwards compatibility with VERSION &lt; v&quot;1.5-&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">By(by) = By(by, Forward)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Lt(lt)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Ordering` which calls `lt(a, b)` to compare elements. `lt` should
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">obey the same rules as implementations of [`isless`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Lt{T} &lt;: Ordering
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lt::T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Perm(order::Ordering, data::AbstractVector)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`Ordering` on the indices of `data` where `i` is less than `j` if `data[i]` is
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">less than `data[j]` according to `order`. In the case that `data[i]` and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`data[j]` are equal, `i` and `j` are compared by numeric value.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Perm{O&lt;:Ordering,V&lt;:AbstractVector} &lt;: Ordering
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    order::O
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    data::V
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ReverseOrdering(by::By) = By(by.by, ReverseOrdering(by.order))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ReverseOrdering(perm::Perm) = Perm(ReverseOrdering(perm.order), perm.data)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lt(o::Ordering, a, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Test whether `a` is less than `b` according to the ordering `o`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-109"></a>109</td>
+          <td></td>
+          <td>2 (10.53%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-ordering-jl-lt-109"></a>
+              2 (10.53%) samples spent in lt<br />
+              0 (ex.),
+              2 (100.00%) (incl.)
+              when called from
+              searchsortedfirst
+              <a href="sort-jl-0d468fbbfe788e8644c1-line.html#Lsort-jl-0d468fbbfe788e8644c1-line.html-184">line 184</a><br />
+            </div>
+            <div class="callees">
+              1 (50.00%)
+              samples spent calling
+              <a href="float-jl-536ca2d747b9e86e577f-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-float-jl-isless-381">isless</a><br />
+              1 (50.00%)
+              samples spent calling
+              <a href="float-jl-536ca2d747b9e86e577f-line.html#S-Applications-Julia-1-6-app-Contents-Resources-julia-share-julia-base-float-jl-isless">isless</a><br />
+            </div>
+            <span class="code">lt(o::ForwardOrdering,       a, b) = isless(a,b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lt(o::ReverseOrdering,       a, b) = lt(o.fwd,b,a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lt(o::By,                    a, b) = lt(o.order,o.by(a),o.by(b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lt(o::Lt,                    a, b) = o.lt(a,b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@propagate_inbounds function lt(p::Perm, a::Integer, b::Integer)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    da = p.data[a]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    db = p.data[b]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lt(p.order, da, db) | (!lt(p.order, db, da) &amp; (a &lt; b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_ord(lt::typeof(isless), by::typeof(identity), order::Ordering) = order
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_ord(lt::typeof(isless), by,                   order::Ordering) = By(by, order)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _ord(lt, by, order::Ordering)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if order === Forward
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Lt((x, y) -&gt; lt(by(x), by(y)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif order === Reverse
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Lt((x, y) -&gt; lt(by(y), by(x)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        error(&quot;Passing both lt= and order= arguments is ambiguous; please pass order=Forward or order=Reverse (or leave default)&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ord(lt, by, rev::Union{Bool, Nothing}, order::Ordering=Forward)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Construct an [`Ordering`](@ref) object from the same arguments used by
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">[`sort!`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Elements are first transformed by the function `by` (which may be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">[`identity`](@ref)) and are then compared according to either the function `lt`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">or an existing ordering `order`. `lt` should be [`isless`](@ref) or a function
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">which obeys similar rules. Finally, the resulting order is reversed if
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`rev=true`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Passing an `lt` other than `isless` along with an `order` other than
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">[`Base.Order.Forward`](@ref) or [`Base.Order.Reverse`](@ref) is not permitted,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">otherwise all options are independent and can be used together in all possible
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">combinations.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ord(lt, by, rev::Nothing, order::Ordering=Forward) = _ord(lt, by, order)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function ord(lt, by, rev::Bool, order::Ordering=Forward)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    o = _ord(lt, by, order)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return rev ? ReverseOrdering(o) : o
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This function is not in use anywhere in Base but we observed
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># use in sorting-related packages (#34719). It&#39;s probably best to move
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># this functionality to those packages in the future; let&#39;s remind/force
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># ourselves to deprecate this in v2.0.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># The following clause means `if VERSION &lt; v&quot;2.0-&quot;` but it also works during
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># bootstrap. For the same reason, we need to write `Int32` instead of `Cint`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">if ccall(:jl_ver_major, Int32, ()) &lt; 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ordtype(o::ReverseOrdering, vs::AbstractArray) = ordtype(o.fwd, vs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ordtype(o::Perm,            vs::AbstractArray) = ordtype(o.order, o.data)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # TODO: here, we really want the return type of o.by, without calling it
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ordtype(o::By,              vs::AbstractArray) = try typeof(o.by(vs[1])) catch; Any end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ordtype(o::Ordering,        vs::AbstractArray) = eltype(vs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lordering-jl-0097f28c4d4a08eda2a6-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
