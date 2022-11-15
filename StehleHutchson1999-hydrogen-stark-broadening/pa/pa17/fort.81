@@ -1,5 +1,1 @@
   temperature, density and r0/debye F00
-  0.250E+04  0.100E+11  0.834E-01  0.580E-02
-  interpolation gives T1 and T2, dense1 and dense2
-  0.250E+04  0.500E+04  0.100E+11  0.316E+11
-           1           2           1           2
