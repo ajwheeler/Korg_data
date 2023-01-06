@@ -132,6 +132,8 @@ isotopologue,dataset
 (23Na)(19F),MoLLIST
 (39K)(19F),MoLLIST
 (41K)(19F),MoLLIST
+(27Al)(37Cl),YNAT
+(27Al)(35Cl),YNAT
 (27Al)(19F),MoLLIST
 (46Ca)(19F),MoLLIST
 (42Ca)(19F),MoLLIST

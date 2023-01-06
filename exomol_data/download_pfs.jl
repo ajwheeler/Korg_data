@@ -36,14 +36,8 @@ for molecular_formula in molecular_formulas
             end 
             if length(files) != 0
                 url = first(files)["url"]
-                # sometimes the files 404
-                # see https://github.com/ExoMol/exomol.com/issues/15
-                try
-                    download(url, "partition_funcs/$(isotop).pf")
-                    push!(datasets, (isotop, recdata[1].first))
-                catch e
-                    continue
-                end
+                download(url, "partition_funcs/$(isotop).pf")
+                push!(datasets, (isotop, recdata[1].first))
             end
         end
     end
