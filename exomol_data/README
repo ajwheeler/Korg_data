@@ -1,0 +1,8 @@
+This directory contains partition functions from the exo project https://exomol.com.
+
+The script download_pfs.jl uses the exomol API to identify and download the recommended partition
+functions for all neutral species included in the project.  They are downloaded to the
+partition_funcs directory.  It also creates data_souces.csv, which contains the exomol identifier
+(DSName, in their parlance) for for the paper from which each partition function is sourced.  At
+present there isn't a nice table mapping DSNames to DOIs or similar, but perhaps there will be in
+the future.
