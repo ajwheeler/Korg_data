@@ -69,6 +69,12 @@ isotopologue,dataset
 (24Mg)(18O),LiTY
 (25Mg)(16O),LiTY
 (24Mg)(16O),LiTY
+(1H)3+,MiZATeP
+(3He)(2H)+,ADJSAAM
+(3He)(1H)+,ADJSAAM
+(4He)(1H)+,ADJSAAM
+(4He)(2H)+,ADJSAAM
+(1H)(2H)+,ADJSAAM
 (12C)(13C),8states
 (13C)2,8states
 (12C)2,8states
@@ -144,6 +150,7 @@ isotopologue,dataset
 (25Mg)(19F),MoLLIST
 (24Mg)(19F),MoLLIST
 (26Mg)(19F),MoLLIST
+(16O)(1H)+,MoLLIST
 (75As)(1H)3,CYT18
 (31P)(19F)3,MCYTY
 (31P)(1H),LaTY
@@ -153,6 +160,7 @@ isotopologue,dataset
 cis-(31P)2(1H)2,OY-Cis
 trans-(31P)2(1H)(2H),OY-Trans
 trans-(31P)2(1H)2,OY-Trans
+(1H)3(16O)+,eXeL
 (39K)(16O)(1H),OYT4
 (23Na)(16O)(1H),OYT5
 (23Na)(16O),NaOUCMe

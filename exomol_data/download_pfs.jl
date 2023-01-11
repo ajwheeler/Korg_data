@@ -10,14 +10,10 @@ end
 molecular_formulas = first.(split.(lines))
 for molecular_formula in molecular_formulas
     # skip molecule if species parsing errors
-    spec = try
-        Korg.Species(molecular_formula)
-    catch e
-        display(e)
-        continue
-    end
-        
-    json = JSON.parse(String(HTTP.get("https://exomol.com/api/?molecule=$(molecular_formula)&datatype=partitionfunction").body))
+    spec = Korg.Species(molecular_formula)
+
+    url = "https://exomol.com/api/?molecule=$(replace(molecular_formula, "+"=>"_p"))&datatype=partitionfunction"
+    json = JSON.parse(String(HTTP.get(url).body))
     
     for (isotop, isodata) in json
         recdata = filter(collect(isodata["partitionfunction"])) do (dataset, props)

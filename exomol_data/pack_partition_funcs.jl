@@ -27,8 +27,15 @@ for filename in readdir("partition_funcs/")
         continue
     end
     
-    spec = Korg.Species(*([*([isotope["element"] for _ in 1:m]...) for (isotope, m) in zip(isotopes, multiplicities)]...))
+    formula = Korg.Formula(*([*([isotope["element"] for _ in 1:m]...) for (isotope, m) in zip(isotopes, multiplicities)]...))
+    charge = if isotopologue[end] == '+'
+        1
+    else
+        0
+    end
+    spec = Korg.Species(formula, charge)
+
     Udata = CSV.read(joinpath("partition_funcs", filename), DataFrame, delim=' ', ignorerepeated=true, header=["T", "U"])
-    h5write(archive_file, "$(spec)/temps", Udata.T)
-    h5write(archive_file, "$(spec)/partition_funcion", Udata.U)
+    h5write(archive_file, "$(spec)/temp", Udata.T)
+    h5write(archive_file, "$(spec)/partition_function", Udata.U)
 end
