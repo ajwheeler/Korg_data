@@ -1,0 +1,2 @@
+This notebook contains the code to pack the SDSS MARCS grid into a big HDF5 file to be read by
+Korg.  It was executed on the SDSS cluster to avoid downloading the data.
